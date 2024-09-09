@@ -1,0 +1,11 @@
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto ens18
+iface ens18 inet static
+    address {{ ansible_host }}
+    netmask 255.255.255.0
+    gateway 10.1.1.1
+    dns-nameservers 8.8.8.8 1.1.1.1

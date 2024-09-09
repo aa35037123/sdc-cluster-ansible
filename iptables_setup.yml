@@ -1,0 +1,12 @@
+---
+- name: Setup iptable rules on wesley-headnode
+  hosts: wesley-headnode
+  become: yes
+  tasks:
+    - name: Ensure iptables-persistent is installed
+      apt:
+          name: iptables-persistent
+          state: present
+          update_cache: yes
+    - name: Set NAT POSTROUTING rule
+      command: iptables -t nat -A POSTROUTING -o ens18 -j MASQUERADE

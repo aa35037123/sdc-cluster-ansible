@@ -1,0 +1,16 @@
+---
+- hosts: static_ip_hosts
+  become: yes
+  tasks:
+    - name: Configure static IP address
+      template:
+        src: /etc/netplan/01-netcfg.yaml
+        dest: /etc/network/interfaces
+        mode: '0644'
+      notify: 
+        - Restart networking
+  handlers:
+    - name: Restart networking
+      service:
+        name: networking
+        state: restarted
